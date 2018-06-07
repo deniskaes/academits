@@ -18,59 +18,53 @@ public class Range {
     }
 
     public Range[] concatenationRanges(Range range2) {
-        Range[] arrayRanges = new Range[2];
-
-        if (this.isInside(range2.from) && this.isInside(range2.to)) {
-            arrayRanges[0] = this;
-            arrayRanges[1] = null;
-        } else if (range2.isInside(this.from) && range2.isInside(this.to)) {
-            arrayRanges[0] = range2;
-            arrayRanges[1] = null;
-        } else if (this.isInside(range2.from) && range2.isInside(this.to)) {
-            arrayRanges[0] = new Range(this.from, range2.to);
-            arrayRanges[1] = null;
-        } else if (range2.isInside(this.from) && this.isInside(range2.to)) {
-            arrayRanges[0] = new Range(range2.from, this.to);
-            arrayRanges[1] = null;
+        Range[] arrayRanges;
+        if (this.crossRanges(range2) == null) {
+            arrayRanges = new Range[2];
+            arrayRanges[0] = new Range(this.from, this.to);
+            arrayRanges[1] = new Range(range2.from, range2.to);
         } else {
-            arrayRanges[0] = this;
-            arrayRanges[1] = range2;
+            arrayRanges = new Range[1];
+            arrayRanges[0] = new Range(Math.min(this.from, range2.from), Math.max(this.to, range2.to));
         }
         return arrayRanges;
     }
 
     public Range[] differenceRanges(Range range2) {
-        Range[] arrayRanges = new Range[2];
-        Range crossRange = this.crossingRanges(range2);
+        Range[] arrayRanges;
+        Range crossRange = this.crossRanges(range2);
 
         if (crossRange == null) {
-            arrayRanges[0] = this;
-            arrayRanges[1] = null;
-        } else if (this.isInside(range2.from) && range2.isInside(this.to)) {
-            arrayRanges[0] = new Range(this.from, crossRange.from);
-            arrayRanges[1] = null;
-        } else if (this.isInside(range2.to) && range2.isInside(this.from)) {
-            arrayRanges[0] = new Range(crossRange.to, this.to);
-            arrayRanges[1] = null;
-        } else {
+            arrayRanges = new Range[1];
+            arrayRanges[0] = new Range(this.from, this.to);
+        } else if (this.from <= range2.from && this.to >= range2.to) {
+            arrayRanges = new Range[2];
             arrayRanges[0] = new Range(this.from, crossRange.from);
             arrayRanges[1] = new Range(crossRange.to, this.to);
+        } else if (this.from <= range2.from && this.to >= range2.from) {
+            arrayRanges = new Range[1];
+            arrayRanges[0] = new Range(this.from, crossRange.from);
+        } else if (range2.from <= this.from && range2.to >= this.to) {
+            arrayRanges = new Range[2];
+            arrayRanges[0] = new Range(range2.from, crossRange.from);
+            arrayRanges[1] = new Range(crossRange.to, range2.to);
+        } else {
+            arrayRanges = new Range[1];
+            arrayRanges[0] = new Range(crossRange.to, this.to);
         }
         return arrayRanges;
     }
 
-    public Range crossingRanges(Range range2) {
-        if (this.isInside(range2.to) && this.isInside(range2.from)) {
-            return range2;
-        } else if (range2.isInside(this.to) && range2.isInside(this.from)) {
-            return this;
-        } else if (this.isInside(range2.from)) {
+    public Range crossRanges(Range range2) {
+        if (range2.from >= this.from && range2.to <= this.to) {
+            return new Range(range2.from, range2.to);
+        } else if (this.from >= range2.from && this.to <= range2.to) {
+            return new Range(this.from, this.to);
+        } else if (range2.from >= this.from && range2.from <= this.to) {
             return new Range(range2.from, this.to);
-        } else if (range2.isInside(this.from)) {
+        } else if (this.from >= range2.from && this.from <= range2.to) {
             return new Range(this.from, range2.to);
-        } else {
-            return null;
-        }
+        } else return null;
     }
 
     public String toString() {
