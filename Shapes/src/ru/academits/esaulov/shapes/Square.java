@@ -3,9 +3,9 @@ package ru.academits.esaulov.shapes;
 public class Square implements Shape {
     private double side;
 
-    public Square(double side){
+    public Square(double side) {
         this.side = side;
-            }
+    }
 
     @Override
     public double getWidth() {
@@ -19,16 +19,16 @@ public class Square implements Shape {
 
     @Override
     public double getArea() {
-        return side*side;
+        return side * side;
     }
 
     @Override
     public double getPerimeter() {
-        return side*4;
+        return side * 4;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Square " + side + " area " + getArea();
     }
 }
