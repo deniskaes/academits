@@ -30,40 +30,40 @@ public class Range {
         return arrayRanges;
     }
 
-    public Range[] differenceRanges(Range range2) {
+    public Range[] differenceRanges(Range range) {
         Range[] arrayRanges;
-        Range crossRange = this.crossRanges(range2);
+        Range crossRange = this.crossRanges(range);
 
         if (crossRange == null) {
             arrayRanges = new Range[1];
             arrayRanges[0] = new Range(this.from, this.to);
-        } else if (this.from <= range2.from && this.to >= range2.to) {
+        } else if (this.from <= range.from && this.to >= range.to) {
             arrayRanges = new Range[2];
-            arrayRanges[0] = new Range(this.from, crossRange.from);
-            arrayRanges[1] = new Range(crossRange.to, this.to);
-        } else if (this.from <= range2.from && this.to >= range2.from) {
+            arrayRanges[0] = new Range(this.from, range.from);
+            arrayRanges[1] = new Range(range.to, this.to);
+        } else if (this.from <= range.from && this.to >= range.from && range.to >= this.to) {
             arrayRanges = new Range[1];
-            arrayRanges[0] = new Range(this.from, crossRange.from);
-        } else if (range2.from <= this.from && range2.to >= this.to) {
+            arrayRanges[0] = new Range(this.from, range.from);
+        } else if (range.from <= this.from && range.to >= this.to) {
             arrayRanges = new Range[2];
-            arrayRanges[0] = new Range(range2.from, crossRange.from);
-            arrayRanges[1] = new Range(crossRange.to, range2.to);
+            arrayRanges[0] = new Range(range.from, this.from);
+            arrayRanges[1] = new Range(this.to, range.to);
         } else {
             arrayRanges = new Range[1];
-            arrayRanges[0] = new Range(crossRange.to, this.to);
+            arrayRanges[0] = new Range(range.from, this.from);
         }
         return arrayRanges;
     }
 
-    public Range crossRanges(Range range2) {
-        if (range2.from >= this.from && range2.to <= this.to) {
-            return new Range(range2.from, range2.to);
-        } else if (this.from >= range2.from && this.to <= range2.to) {
+    public Range crossRanges(Range range) {
+        if (range.from >= this.from && range.to <= this.to) {
+            return new Range(range.from, range.to);
+        } else if (this.from >= range.from && this.to <= range.to) {
             return new Range(this.from, this.to);
-        } else if (range2.from >= this.from && range2.from <= this.to) {
-            return new Range(range2.from, this.to);
-        } else if (this.from >= range2.from && this.from <= range2.to) {
-            return new Range(this.from, range2.to);
+        } else if (range.from >= this.from && range.from <= this.to && range.to >= this.to) {
+            return new Range(range.from, this.to);
+        } else if (this.from >= range.from && this.from <= range.to && this.to >= range.to) {
+            return new Range(this.from, range.to);
         } else return null;
     }
 
