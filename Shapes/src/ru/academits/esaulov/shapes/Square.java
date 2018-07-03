@@ -29,6 +29,6 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return "Square " + side + " area " + getArea();
+        return String.format("Square area = %.4f", getArea());
     }
 }

@@ -1,15 +1,7 @@
 package ru.academits.esaulov.shapes;
 
 public class Triangle implements Shape {
-    private double x1;
-    private double x2;
-    private double x3;
-    private double y1;
-    private double y2;
-    private double y3;
-    private double sideA;
-    private double sideB;
-    private double sideC;
+    private double x1, x2, x3, y1, y2, y3, sideA, sideB, sideC;
 
     public Triangle(double x1, double x2, double x3, double y1, double y2, double y3) {
         this.x1 = x1;
@@ -48,4 +40,10 @@ public class Triangle implements Shape {
     public double getPerimeter() {
         return sideA + sideB + sideC;
     }
+
+    @Override
+    public String toString(){
+        return String.format("Triangle area = %.4f", getArea());
+    }
 }
+

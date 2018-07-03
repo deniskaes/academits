@@ -28,5 +28,10 @@ public class Rectangle implements Shape {
     public double getPerimeter() {
         return (sideA + sideB) * 2;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Rectangle area = %.4f",getArea());
+    }
 }
 
