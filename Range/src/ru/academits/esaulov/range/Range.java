@@ -50,7 +50,7 @@ public class Range {
             arrayRanges[1] = new Range(this.to, range.to);
         } else {
             arrayRanges = new Range[1];
-            arrayRanges[0] = new Range(range.from, this.from);
+            arrayRanges[0] = new Range(range.to, this.to);
         }
         return arrayRanges;
     }
