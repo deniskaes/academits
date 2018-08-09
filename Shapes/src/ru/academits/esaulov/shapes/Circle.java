@@ -31,4 +31,20 @@ public class Circle implements Shape {
     public String toString() {
         return String.format("Circle radius = %f, area  = %.4f", radius, getArea());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+        Circle circle = (Circle) o;
+        return this.radius == circle.radius;
+    }
+    @Override
+    public int hashCode(){
+        return (int)radius;
+    }
 }

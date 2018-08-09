@@ -1,4 +1,6 @@
-package ru.academits.esaulov.shapes;
+package ru.academits.esaulov.shapes.comparators;
+
+import ru.academits.esaulov.shapes.Shape;
 
 import java.util.Comparator;
 

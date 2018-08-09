@@ -31,7 +31,24 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return String.format("Rectangle area = %.4f",getArea());
+        return String.format("Rectangle area = %.4f", getArea());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+        Rectangle rectangle = (Rectangle) o;
+        return rectangle.sideA == this.sideA && rectangle.sideB == this.sideB;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int)(getArea()*getPerimeter());
     }
 }
 

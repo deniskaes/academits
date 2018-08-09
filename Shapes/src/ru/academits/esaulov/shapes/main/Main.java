@@ -1,6 +1,8 @@
 package ru.academits.esaulov.shapes.main;
 
 import ru.academits.esaulov.shapes.*;
+import ru.academits.esaulov.shapes.comparators.ShapesAreaComparator;
+import ru.academits.esaulov.shapes.comparators.ShapesPerimeterComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
