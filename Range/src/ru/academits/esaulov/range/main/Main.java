@@ -4,7 +4,7 @@ import ru.academits.esaulov.range.Range;
 
 public class Main {
     public static void main(String[] args) {
-        Range range1 = new Range(3, 6);
+        Range range1 = new Range(2, 4);
         Range range2 = new Range(1, 5);
         Range range3 = new Range(7, 13);
 
