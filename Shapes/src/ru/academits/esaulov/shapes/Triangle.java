@@ -18,12 +18,12 @@ public class Triangle implements Shape {
         this.y1 = y1;
         this.y2 = y2;
         this.y3 = y3;
-        sideA = lengthSide(x1, y1, x2, y2);
-        sideB = lengthSide(x2, y2, x3, y3);
-        sideC = lengthSide(x1, y1, x3, y3);
+        sideA = getSideLength(x1, y1, x2, y2);
+        sideB = getSideLength(x2, y2, x3, y3);
+        sideC = getSideLength(x1, y1, x3, y3);
     }
 
-    private double lengthSide(double x1, double y1, double x2, double y2) {
+    private double getSideLength(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
@@ -55,7 +55,7 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return String.format("Triangle area = %.4f", getArea());
+        return String.format("[Triangle area = %.4f, perimeter = %.4f]", getArea(), getPerimeter());
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Triangle implements Shape {
 
     @Override
     public int hashCode() {
-        return (int)((getArea()+x1+x2+x3+y1+y2+y3)*getPerimeter());
+        return Double.hashCode((x1 + x2 + x3) * (y1 + y2 + y3));
     }
 }
 

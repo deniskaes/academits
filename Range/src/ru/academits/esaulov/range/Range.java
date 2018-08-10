@@ -9,6 +9,22 @@ public class Range {
         this.to = to;
     }
 
+    public double getFrom() {
+        return this.from;
+    }
+
+    public double getTo() {
+        return this.to;
+    }
+
+    public void setFrom(double from) {
+        this.from = from;
+    }
+
+    public void setTo(double to) {
+        this.to = to;
+    }
+
     public double getRangeLength() {
         return Math.abs(from - to);
     }
@@ -35,9 +51,9 @@ public class Range {
         if (this.to <= range.from || this.from >= range.to) {
             return new Range[]{this};
         } else if (this.from < range.from && this.to > range.to) {
-            return new Range[]{new Range(this.from, range.from), new Range(range.to,this.to)};
+            return new Range[]{new Range(this.from, range.from), new Range(range.to, this.to)};
         } else if (this.from < range.from && this.to <= range.to && range.from < this.to) {
-            return new Range[]{new Range(this.from,range.from)};
+            return new Range[]{new Range(this.from, range.from)};
         } else if (this.from < range.to && range.to < this.to && this.from >= range.from) {
             return new Range[]{new Range(range.to, this.to)};
         } else {
@@ -54,7 +70,9 @@ public class Range {
             return new Range(range.from, this.to);
         } else if (this.from >= range.from && this.from <= range.to && this.to >= range.to) {
             return new Range(this.from, range.to);
-        } else return null;
+        } else {
+            return null;
+        }
     }
 
     public String toString() {

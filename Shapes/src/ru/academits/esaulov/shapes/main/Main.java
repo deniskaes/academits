@@ -37,14 +37,14 @@ public class Main {
         Shape[] shapeAscendingAreaArray = new Shape[shapeList.size()];
         shapeAscendingAreaArray = shapeList.toArray(shapeAscendingAreaArray);
         Arrays.sort(shapeAscendingAreaArray, new ShapesAreaComparator());
+        System.out.println(Arrays.toString(shapeAscendingAreaArray));
 
         Shape[] shapeAscendingPerimeterArray = new Shape[shapeList.size()];
         shapeAscendingPerimeterArray = shapeList.toArray(shapeAscendingPerimeterArray);
         Arrays.sort(shapeAscendingPerimeterArray, new ShapesPerimeterComparator());
+        System.out.println(Arrays.toString(shapeAscendingPerimeterArray));
 
         System.out.println("Фигура с максимальной площадью: " + getMaxAreaShape(shapeList));
-
-
-
+        System.out.println("Фигура со вторым по величине периметром: " + shapeAscendingPerimeterArray[1]);
     }
 }

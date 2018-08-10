@@ -31,7 +31,7 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return String.format("Rectangle area = %.4f", getArea());
+        return String.format("[Rectangle area = %.4f, perimeter = %.4f]", getArea(), getPerimeter());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Rectangle implements Shape {
 
     @Override
     public int hashCode() {
-        return (int)(getArea()*getPerimeter());
+        return Double.hashCode((sideA + sideB) * sideA);
     }
 }
 

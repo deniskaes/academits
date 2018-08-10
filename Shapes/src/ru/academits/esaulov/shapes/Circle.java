@@ -29,7 +29,7 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return String.format("Circle radius = %f, area  = %.4f", radius, getArea());
+        return String.format("[Circle area  = %.4f, perimetr = %.4f]", getArea(), getPerimeter());
     }
 
     @Override
@@ -43,8 +43,9 @@ public class Circle implements Shape {
         Circle circle = (Circle) o;
         return this.radius == circle.radius;
     }
+
     @Override
-    public int hashCode(){
-        return (int)radius;
+    public int hashCode() {
+        return Double.hashCode(radius);
     }
 }

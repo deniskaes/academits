@@ -29,7 +29,7 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return String.format("Square area = %.4f", getArea());
+        return String.format("[Square area = %.4f, perimeter = %.4f]", getArea(), getPerimeter());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Square implements Shape {
         if (o == this) {
             return true;
         }
-        if (o == null || o.getClass() != this.getClass()){
+        if (o == null || o.getClass() != this.getClass()) {
             return false;
         }
         Square square = (Square) o;
@@ -46,6 +46,6 @@ public class Square implements Shape {
 
     @Override
     public int hashCode() {
-        return (int)side;
+        return Double.hashCode(side);
     }
 }
