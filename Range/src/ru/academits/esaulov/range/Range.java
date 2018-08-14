@@ -56,7 +56,7 @@ public class Range {
     }
 
     public Range crossRanges(Range range) {
-        if (range.from > this.to || range.to < this.from) {
+        if (range.from >= this.to || range.to <= this.from) {
             return null;
         } else {
             return new Range(Math.max(this.from, range.from), Math.min(this.to, range.to));

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class Main {
 
     private static Shape getMaxAreaShape(List<Shape> shapeList) {
@@ -22,6 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList<Shape> shapeList = new ArrayList<>();
+
 
         shapeList.add(new Square(2.5));
         shapeList.add(new Square(3));
