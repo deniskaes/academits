@@ -25,10 +25,10 @@ public class Main {
         vector1.differenceVectors(vector4);
         System.out.println(vector1);
         System.out.print("vector1 * 3 ");
-        vector1.MultiplyVectorByNumber(3);
+        vector1.multiplyVectorByNumber(3);
         System.out.println(vector1);
         System.out.print("vector1 inversion ");
-        vector1.RotateVector();
+        vector1.rotateVector();
         System.out.println(vector1);
         System.out.print("vector1 Length = ");
         System.out.println(vector1.getVectorLength());
@@ -36,7 +36,7 @@ public class Main {
         vector1.setCoordinateByIndex(2, 10);
         System.out.println(vector1);
         System.out.print("vector1 coordinate index 2 = ");
-        System.out.println(vector1.getCoordinateVectorByIndex(2));
+        System.out.println(vector1.getCoordinateByIndex(2));
     }
 
 

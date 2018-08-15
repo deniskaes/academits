@@ -11,13 +11,9 @@ public class Vector {
         }
 
         coordinates = new double[n];
-        Arrays.fill(coordinates, 0);
     }
 
     public Vector(Vector v) {
-        if (v.coordinates.length == 0) {
-            throw new IllegalArgumentException("передан вектор нулевой длины");
-        }
         coordinates = Arrays.copyOf(v.coordinates, v.coordinates.length);
     }
 
@@ -74,14 +70,14 @@ public class Vector {
         }
     }
 
-    public void MultiplyVectorByNumber(double number) {
+    public void multiplyVectorByNumber(double number) {
         for (int i = 0; i < this.coordinates.length; i++) {
             this.coordinates[i] *= number;
         }
     }
 
-    public void RotateVector() {
-        this.MultiplyVectorByNumber(-1);
+    public void rotateVector() {
+        this.multiplyVectorByNumber(-1);
     }
 
     public double getVectorLength() {
@@ -94,14 +90,14 @@ public class Vector {
 
     public void setCoordinateByIndex(int index, double value) {
         if (index < 0 || index >= this.coordinates.length) {
-            throw new IllegalArgumentException("не верный индекс");
+            throw new ArrayIndexOutOfBoundsException("не верный индекс");
         }
         this.coordinates[index] = value;
     }
 
-    public double getCoordinateVectorByIndex(int index) {
+    public double getCoordinateByIndex(int index) {
         if (index < 0 || index >= this.coordinates.length) {
-            throw new IllegalArgumentException("не верный индекс");
+            throw new ArrayIndexOutOfBoundsException("не верный индекс");
         }
         return this.coordinates[index];
     }
@@ -117,10 +113,7 @@ public class Vector {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for (int i = 0; ; i++) {
-            if (i == this.coordinates.length - 1) {
-                break;
-            }
+        for (int i = 0; i < this.coordinates.length - 1; i++) {
             sb.append(coordinates[i]).append(",");
         }
         return sb.append(coordinates[this.coordinates.length - 1]).append("}").toString();
