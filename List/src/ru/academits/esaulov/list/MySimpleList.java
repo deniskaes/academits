@@ -21,8 +21,8 @@ public class MySimpleList<T> {
     }
 
     public void insertFirstItem(T data) {
-        ListItem<T> firstItem = new ListItem<>(data, head);
-        head = firstItem;
+
+        head = new ListItem<>(data, head);
         length++;
     }
 
@@ -121,7 +121,7 @@ public class MySimpleList<T> {
             insertFirstItem(data);
         } else if (index == length) {
             ListItem<T> lastItem = getItemByIndex(length - 1);
-            lastItem.setNext(new ListItem<T>(data));
+            lastItem.setNext(new ListItem<>(data));
             length++;
         } else {
             ListItem<T> prevItem = getItemByIndex(index - 1);
@@ -150,10 +150,10 @@ public class MySimpleList<T> {
     public MySimpleList<T> copy() {
         MySimpleList<T> copyMySimpleList = new MySimpleList<>();
         copyMySimpleList.length = length;
-        copyMySimpleList.head = new ListItem<T>(head.getData());
+        copyMySimpleList.head = new ListItem<>(head.getData());
         ListItem<T> cp = copyMySimpleList.head;
         for (ListItem<T> p = head.getNext(); p != null; p = p.getNext()) {
-            cp.setNext(new ListItem<T>(p.getData()));
+            cp.setNext(new ListItem<>(p.getData()));
             cp = cp.getNext();
         }
         return copyMySimpleList;
