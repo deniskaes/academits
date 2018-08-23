@@ -2,6 +2,8 @@ package ru.academits.esaulov.list;
 
 import ru.academits.esaulov.list.listitem.ListItem;
 
+import java.util.Objects;
+
 public class MySimpleList<T> {
     private int length;
     private ListItem<T> head;
@@ -10,41 +12,23 @@ public class MySimpleList<T> {
         return length;
     }
 
-    public void add(T data) {
-        ListItem<T> addItem = new ListItem<>(data);
-        if (head == null) {
-            head = addItem;
-            length++;
-        } else {
-            ListItem<T> p = head;
-            while (p.getNext() != null) {
-                p = p.getNext();
-            }
-            p.setNext(addItem);
-            length++;
-        }
-    }
 
     public T getValueFistItem() {
-        if (length != 0) {
-            return head.getData();
+        if (length == 0) {
+            throw new NullPointerException("сптсок пуст");
         }
-        throw new NullPointerException("сптсок пуст");
+        return head.getData();
     }
 
     public void insertFirstItem(T data) {
-        ListItem<T> firstItem = new ListItem<>(data);
-        firstItem.setNext(head);
+        ListItem<T> firstItem = new ListItem<>(data, head);
         head = firstItem;
         length++;
     }
 
     public T removeFistItem() {
-        if (length > 1) {
-            T savedOldData = head.getData();
-            head = head.getNext();
-            length--;
-            return savedOldData;
+        if (length == 0) {
+            throw new ArrayIndexOutOfBoundsException("коллекция пуста");
         }
         if (length == 1) {
             T savedOldData = head.getData();
@@ -52,10 +36,13 @@ public class MySimpleList<T> {
             length--;
             return savedOldData;
         }
-        throw new ArrayIndexOutOfBoundsException("коллекция пуста");
+        T savedOldData = head.getData();
+        head = head.getNext();
+        length--;
+        return savedOldData;
     }
 
-    public ListItem<T> getItemByIndex(int index) {
+    private ListItem<T> getItemByIndex(int index) {
         ListItem<T> p = head;
         int i = 0;
         while (i < index) {
@@ -87,11 +74,10 @@ public class MySimpleList<T> {
             throw new ArrayIndexOutOfBoundsException("индекс неверный");
         }
         if (index == 0) {
-            length--;
             return removeFistItem();
         }
         ListItem<T> prevItem = getItemByIndex(index - 1);
-        ListItem<T> p = getItemByIndex(index);
+        ListItem<T> p = prevItem.getNext();
         prevItem.setNext(p.getNext());
 
         length--;
@@ -100,31 +86,46 @@ public class MySimpleList<T> {
     }
 
     public boolean removeItemByValue(T data) {
+        ListItem<T> prev = null;
         ListItem<T> p = head;
         int i = 0;
         while (i < length) {
-            if (p.getData() == data || p.getData().equals(data)) {
-                removeItemByIndex(i);
-                length--;
-                return true;
+            if (!Objects.equals(p.getData(), data)) {
+                prev = p;
+                p = p.getNext();
+                i++;
+            } else {
+                if (i == 0) {
+                    head = p.getNext();
+                    length--;
+                    return true;
+                } else {
+                    prev.setNext(p.getNext());
+                    length--;
+                    return true;
+                }
             }
-            p = p.getNext();
-            i++;
         }
         return false;
+    }
+
+    public void add(T data) {
+        insertItemByIndex(length, data);
     }
 
     public void insertItemByIndex(int index, T data) {
         if (index < 0 || index > length) {
             throw new ArrayIndexOutOfBoundsException("неверный индекс");
         }
-        if (index == length) {
-            add(data);
-        } else if (index == 0) {
+        if (index == 0) {
             insertFirstItem(data);
+        } else if (index == length) {
+            ListItem<T> lastItem = getItemByIndex(length - 1);
+            lastItem.setNext(new ListItem<T>(data));
+            length++;
         } else {
             ListItem<T> prevItem = getItemByIndex(index - 1);
-            ListItem<T> p = getItemByIndex(index);
+            ListItem<T> p = prevItem.getNext();
             ListItem<T> insertedByIndex = new ListItem<>(data);
             prevItem.setNext(insertedByIndex);
             insertedByIndex.setNext(p);
@@ -148,8 +149,12 @@ public class MySimpleList<T> {
 
     public MySimpleList<T> copy() {
         MySimpleList<T> copyMySimpleList = new MySimpleList<>();
-        for (ListItem<T> p = head; p != null; p = p.getNext()) {
-            copyMySimpleList.add(p.getData());
+        copyMySimpleList.length = length;
+        copyMySimpleList.head = new ListItem<T>(head.getData());
+        ListItem<T> cp = copyMySimpleList.head;
+        for (ListItem<T> p = head.getNext(); p != null; p = p.getNext()) {
+            cp.setNext(new ListItem<T>(p.getData()));
+            cp = cp.getNext();
         }
         return copyMySimpleList;
     }
@@ -158,7 +163,7 @@ public class MySimpleList<T> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
-            sb.append("{").append(p.getData()).append("}");
+            sb.append('{').append(p.getData()).append('}');
         }
         return sb.toString();
     }

@@ -8,11 +8,14 @@ public class Main {
         listSimpleInteger.add(2);
         listSimpleInteger.add(4);
         listSimpleInteger.add(5);
-        listSimpleInteger.add(1);
+        listSimpleInteger.add(null);
+
+        System.out.println(listSimpleInteger.removeItemByValue(7));
+        System.out.println(listSimpleInteger);
         MySimpleList<Integer> newCopy = listSimpleInteger.copy();
         newCopy.add(10);
-        System.out.println(listSimpleInteger);
-        System.out.println(newCopy);
+        System.out.println(listSimpleInteger + " " + listSimpleInteger.getLength());
+        System.out.println(newCopy + " " + newCopy.getLength());
 
     }
 }
