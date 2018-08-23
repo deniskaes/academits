@@ -32,7 +32,7 @@ public class ListItem<T> {
     @Override
     public String toString() {
         if (this.getData() == null) {
-            throw new NullPointerException("в обЪекте нету данных");
+            return "null";
         }
         return data.toString();
     }

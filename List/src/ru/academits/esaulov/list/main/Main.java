@@ -12,10 +12,5 @@ public class Main {
 
         System.out.println(listSimpleInteger.removeItemByValue(7));
         System.out.println(listSimpleInteger);
-        MySimpleList<Integer> newCopy = listSimpleInteger.copy();
-        newCopy.add(10);
-        System.out.println(listSimpleInteger + " " + listSimpleInteger.getLength());
-        System.out.println(newCopy + " " + newCopy.getLength());
-
     }
 }

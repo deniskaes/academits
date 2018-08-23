@@ -12,7 +12,6 @@ public class MySimpleList<T> {
         return length;
     }
 
-
     public T getValueFistItem() {
         if (length == 0) {
             throw new NullPointerException("сптсок пуст");
@@ -21,7 +20,6 @@ public class MySimpleList<T> {
     }
 
     public void insertFirstItem(T data) {
-
         head = new ListItem<>(data, head);
         length++;
     }
@@ -82,7 +80,6 @@ public class MySimpleList<T> {
 
         length--;
         return p.getData();
-
     }
 
     public boolean removeItemByValue(T data) {
@@ -150,6 +147,9 @@ public class MySimpleList<T> {
     public MySimpleList<T> copy() {
         MySimpleList<T> copyMySimpleList = new MySimpleList<>();
         copyMySimpleList.length = length;
+        if (length == 0) {
+            return copyMySimpleList;
+        }
         copyMySimpleList.head = new ListItem<>(head.getData());
         ListItem<T> cp = copyMySimpleList.head;
         for (ListItem<T> p = head.getNext(); p != null; p = p.getNext()) {
@@ -161,9 +161,12 @@ public class MySimpleList<T> {
 
     @Override
     public String toString() {
+        if (length == 0) {
+            return "список пуст";
+        }
         StringBuilder sb = new StringBuilder();
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
-            sb.append('{').append(p.getData()).append('}');
+            sb.append("[").append(p.getData()).append("] ");
         }
         return sb.toString();
     }
