@@ -61,6 +61,7 @@ public class MySimpleList<T> {
         if (index < 0 || index >= length) {
             throw new ArrayIndexOutOfBoundsException("индекс неверный");
         }
+
         ListItem<T> foundItemByIndex = getItemByIndex(index);
         T savedOldValue = foundItemByIndex.getData();
         foundItemByIndex.setData(data);
@@ -74,10 +75,10 @@ public class MySimpleList<T> {
         if (index == 0) {
             return removeFistItem();
         }
+
         ListItem<T> prevItem = getItemByIndex(index - 1);
         ListItem<T> p = prevItem.getNext();
         prevItem.setNext(p.getNext());
-
         length--;
         return p.getData();
     }
@@ -150,6 +151,7 @@ public class MySimpleList<T> {
         if (length == 0) {
             return copyMySimpleList;
         }
+
         copyMySimpleList.head = new ListItem<>(head.getData());
         ListItem<T> cp = copyMySimpleList.head;
         for (ListItem<T> p = head.getNext(); p != null; p = p.getNext()) {
@@ -162,12 +164,17 @@ public class MySimpleList<T> {
     @Override
     public String toString() {
         if (length == 0) {
-            return "список пуст";
+            return "[список пуст]";
         }
-        StringBuilder sb = new StringBuilder();
+
+        StringBuilder sb = new StringBuilder("[");
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
-            sb.append("[").append(p.getData()).append("] ");
+            sb.append(p.getData());
+            if (p.getNext() != null) {
+                sb.append(", ");
+            }
         }
+        sb.append("]");
         return sb.toString();
     }
 }
