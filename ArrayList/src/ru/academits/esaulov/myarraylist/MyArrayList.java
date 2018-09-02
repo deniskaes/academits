@@ -5,6 +5,7 @@ import java.util.*;
 public class MyArrayList<T> implements List<T> {
     private T[] items;
     private int length;
+    private static int modCount = 0;
 
     public MyArrayList(int capacity) {
         //noinspection unchecked
@@ -35,9 +36,32 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
+        return new Iterator<>() {
+            private int modCount1 = MyArrayList.modCount;
+            private int currentIndex = -1;
 
-        //TODO
-        return null;
+            @Override
+            public boolean hasNext() {
+                return currentIndex + 1 < length;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                if (modCount1 != MyArrayList.modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                currentIndex++;
+                return items[currentIndex];
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 
     @Override
@@ -61,6 +85,7 @@ public class MyArrayList<T> implements List<T> {
         }
         items[length] = t;
         length++;
+        modCount++;
         return true;
     }
 
@@ -84,10 +109,12 @@ public class MyArrayList<T> implements List<T> {
             if (Objects.equals(items[i], o)) {
                 if (i == length - 1) {
                     length--;
+                    modCount++;
                     return true;
                 }
                 System.arraycopy(items, i + 1, items, i, length - 1 - i);
                 length--;
+                modCount++;
                 return true;
             }
         }
@@ -115,6 +142,7 @@ public class MyArrayList<T> implements List<T> {
         for (T e : c) {
             add(e);
             length++;
+            modCount++;
         }
         return true;
     }
@@ -135,6 +163,7 @@ public class MyArrayList<T> implements List<T> {
             add(i, e);
             i++;
             length++;
+            modCount++;
         }
         System.arraycopy(tailArray, 0, items, length, tailArray.length);
         return true;
@@ -189,6 +218,7 @@ public class MyArrayList<T> implements List<T> {
             throw new ArrayIndexOutOfBoundsException("не верный индекс");
         }
         items[index] = element;
+        modCount++;
         return element;
     }
 
@@ -209,6 +239,7 @@ public class MyArrayList<T> implements List<T> {
             }
         }
         length++;
+        modCount++;
     }
 
     @Override
@@ -219,10 +250,12 @@ public class MyArrayList<T> implements List<T> {
         T saveElement = items[index];
         if (index == length - 1) {
             length--;
+            modCount++;
             return saveElement;
         }
         System.arraycopy(items, index + 1, items, index, length - 1 - index);
         length--;
+        modCount++;
         return saveElement;
     }
 
