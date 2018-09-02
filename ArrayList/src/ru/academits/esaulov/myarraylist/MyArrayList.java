@@ -37,7 +37,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {
-            private int modCount1 = MyArrayList.modCount;
+            private int modCount1 =modCount;
             private int currentIndex = -1;
 
             @Override
@@ -50,11 +50,10 @@ public class MyArrayList<T> implements List<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (modCount1 != MyArrayList.modCount) {
+                if (modCount1 != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                currentIndex++;
-                return items[currentIndex];
+                return items[currentIndex++];
             }
 
             @Override
