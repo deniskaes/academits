@@ -66,7 +66,7 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
-    public T[] toArray() {
+    public Object[] toArray() {
         return Arrays.copyOf(items, length);
     }
 
@@ -103,7 +103,7 @@ public class MyArrayList<T> implements List<T> {
             throw new IllegalArgumentException("не верный параметр");
         }
         if (items.length < capacity) {
-           items = Arrays.copyOf(items,capacity);
+            items = Arrays.copyOf(items, capacity);
         }
     }
 
@@ -168,8 +168,9 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         boolean isModified = false;
-        for (Object e : c) {
-            if (remove(e)) {
+        for (int i = 0; i < length; i++) {
+            if (c.contains(items[i])) {
+                remove(i);
                 isModified = true;
             }
         }
@@ -179,7 +180,8 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c.size() == 0) {
-            return false;
+            clear();
+            return true;
         }
         boolean isModify = false;
         for (int i = 0; i < length; i++) {
