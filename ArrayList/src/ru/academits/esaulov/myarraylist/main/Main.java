@@ -8,15 +8,17 @@ import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
-        MyArrayList<Integer> intList1 = new MyArrayList<>(5);
-        intList1.add(1);
-        intList1.add(3);
-        intList1.add(6);
+        MyArrayList<Integer> intList = new MyArrayList<>(5);
+        intList.add(3);
+        intList.add(3);
+        intList.add(6);
 
-        intList1.clear();
-        System.out.println(intList1.get(1));
+        Integer[] listToArray = intList.toArray();
 
-        System.out.println(intList1);
-        ArrayList<Integer> sdasd = new ArrayList<>();
+        for(Integer e: listToArray){
+            System.out.print(e + " ");
+        }
+
+
     }
 }
