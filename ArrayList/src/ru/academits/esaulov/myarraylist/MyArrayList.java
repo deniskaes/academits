@@ -134,11 +134,13 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         ensureCapacity(length + c.size());
+        int i = length;
         for (T e : c) {
-            items[length] = e;
-            length++;
+            items[i] = e;
+            i +=1;
             modCount++;
         }
+        length += c.size();
         return true;
     }
 
@@ -155,10 +157,11 @@ public class MyArrayList<T> implements List<T> {
         modCount++;
         int i = index;
         for (T e : c) {
-            items[i++] = e;
+            items[i] = e;
+            i += 1;
             modCount++;
-            length++;
         }
+        length += c.size();
         return true;
     }
 
@@ -183,14 +186,14 @@ public class MyArrayList<T> implements List<T> {
             clear();
             return true;
         }
-        boolean isModify = false;
+        boolean isModified = false;
         for (int i = 0; i < length; i++) {
             if (!c.contains(items[i])) {
                 remove(i);
-                isModify = true;
+                isModified = true;
             }
         }
-        return isModify;
+        return isModified;
     }
 
     @Override
