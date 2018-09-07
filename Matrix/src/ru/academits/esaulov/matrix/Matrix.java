@@ -2,6 +2,8 @@ package ru.academits.esaulov.matrix;
 
 import ru.academits.esaulov.vector.Vector;
 
+import java.util.Arrays;
+
 public class Matrix {
     private Vector[] matrix;
 
@@ -118,6 +120,89 @@ public class Matrix {
         Matrix resultMatrix = new Matrix(numberColumnMatrix, 1);
         resultMatrix.setColumnVector(0, result);
         matrix = resultMatrix.matrix;
+    }
+
+    public void sumMatrix(Matrix matrix) {
+        if (!Arrays.equals(getDimension(), matrix.getDimension())) {
+            throw new IllegalArgumentException("размерность матриц отличается");
+        }
+        for (int i = 0; i < this.matrix.length; i++) {
+            this.matrix[i] = Vector.getSumVectors(this.matrix[i], matrix.getStringVector(i));
+        }
+    }
+
+    public void differenceMatrix(Matrix matrix) {
+        if (!Arrays.equals(getDimension(), matrix.getDimension())) {
+            throw new IllegalArgumentException("размерность матриц отличается");
+        }
+        matrix.multiplicationByScalar(-1);
+        this.sumMatrix(matrix);
+    }
+
+    public static Matrix getSumMatrix(Matrix matrix1, Matrix matrix2) {
+        if (!Arrays.equals(matrix1.getDimension(), matrix2.getDimension())) {
+            throw new IllegalArgumentException("размерность матриц отличается");
+        }
+        Matrix resultMatrix = new Matrix(matrix1);
+        resultMatrix.sumMatrix(matrix2);
+        return resultMatrix;
+    }
+
+    public static Matrix getDifferenceMatrix(Matrix matrix1, Matrix matrix2) {
+        if (!Arrays.equals(matrix1.getDimension(), matrix2.getDimension())) {
+            throw new IllegalArgumentException("размерность матриц отличается");
+        }
+        Matrix resultMatrix = new Matrix(matrix1);
+        resultMatrix.differenceMatrix(matrix2);
+        return resultMatrix;
+    }
+
+    public static Matrix getMultiplyMatrix(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.getDimension()[1] != matrix2.getDimension()[0]) {
+            throw new IllegalArgumentException("размерность матриц отличается");
+        }
+        int[] dimensionMatrix2 = matrix2.getDimension();
+        Matrix resultMatrix = new Matrix(dimensionMatrix2[0], dimensionMatrix2[1]);
+        for (int i = 0; i < dimensionMatrix2[0]; i++) {
+            for (int m = 0; m < dimensionMatrix2[1]; m++) {
+                resultMatrix.matrix[i].setCoordinateByIndex(m, Vector.getScalarMultiply(matrix1.getStringVector(i),
+                        matrix2.getColumnVector(m)));
+            }
+        }
+        return resultMatrix;
+    }
+
+    public double determinantMatrix() {
+        int[] dimensionMatrix = getDimension();
+        if (dimensionMatrix[0] != dimensionMatrix[1]) {
+            throw new ArithmeticException("матрица должна быть квадратной");
+        }
+        if (dimensionMatrix[0] == 1) {
+            return matrix[0].getCoordinateByIndex(0);
+        }
+//        if (dimensionMatrix[0] == 2) {
+//            Vector string1 = getStringVector(0);
+//            Vector string2 = getStringVector(1);
+//            return string1.getCoordinateByIndex(0) * string2.getCoordinateByIndex(1) -
+//                    string1.getCoordinateByIndex(1) * string2.getCoordinateByIndex(0);
+//        }
+
+        double determinant = 0;
+        int decayLine = 0;
+        for (int i = 0; i < dimensionMatrix[0]; i++) {
+            Matrix minorMatrix = new Matrix(dimensionMatrix[0] - 1, dimensionMatrix[0] - 1);
+            for (int s = 0; s < dimensionMatrix[0] - 1; s++) {
+                for (int c = 0; c < dimensionMatrix[0] - 1; c++) {
+                    if (i <= c) {
+                        minorMatrix.getStringVector(s).setCoordinateByIndex(c, matrix[s + 1].getCoordinateByIndex(c + 1));
+                    } else {
+                        minorMatrix.getStringVector(s).setCoordinateByIndex(c, matrix[s + 1].getCoordinateByIndex(c));
+                    }
+                }
+            }
+            determinant += matrix[decayLine].getCoordinateByIndex(i) * Math.pow(-1, i + decayLine) * minorMatrix.determinantMatrix();
+        }
+        return determinant;
     }
 
     @Override
