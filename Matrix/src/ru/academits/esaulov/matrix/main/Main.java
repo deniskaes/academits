@@ -28,7 +28,9 @@ public class Main {
 //        Matrix mat2 = new Matrix(mat);
 
         System.out.println(av3);
-        av3.getRow(2);
+        av3.transposeMatrix();
+        System.out.println(av3);
+
 
 
     }

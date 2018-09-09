@@ -107,13 +107,12 @@ public class Matrix {
     }
 
     public void transposeMatrix() {
-        int rowNumberOld = getRowDimension();
         int columnNumberOld = getColumnDimension();
-        Matrix transposeMatrix = new Matrix(columnNumberOld, rowNumberOld);
+        Vector[] arrayVector = new Vector[columnNumberOld];
         for (int i = 0; i < columnNumberOld; i++) {
-            transposeMatrix.setRow(i, getColumn(i));
+            arrayVector[i] = new Vector(getColumn(i));
         }
-        arrayRowMatrix = transposeMatrix.arrayRowMatrix;
+        arrayRowMatrix = arrayVector;
     }
 
     public void multiplicationByScalar(double number) {
