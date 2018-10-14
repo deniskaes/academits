@@ -141,17 +141,6 @@ public class Matrix {
         }
     }
 
-    //    public Vector multiplicationMatrixByVector(Vector vector) {
-//        int columnMatrixNumber = getColumnCount();
-//        if (columnMatrixNumber != vector.getSize()) {
-//            throw new IndexOutOfBoundsException("перемножение не допустимо");
-//        }
-//        Vector result = new Vector(columnMatrixNumber);
-//        for (int i = 0; i < columnMatrixNumber; i++) {
-//            result.setCoordinateByIndex(i, Vector.getScalarMultiply(getRow(i), vector));
-//        }
-//        return result;
-//    }
     public Vector multiplicationMatrixByVector(Vector vector) {
         int rowMatrixCount = getRowCount();
         if (rowMatrixCount != vector.getSize()) {
