@@ -23,7 +23,7 @@ public class Main {
 //        av1[0] = vector3;
 //        av1[1] = vector4;
 //        av[2] = vector3;
-        Matrix av3 = new Matrix(new double[][]{{1,2,3},{5,4,6},{7,1,2}});
+        Matrix av3 = new Matrix(new double[][]{{1,2,3},{5,4,6}});
         Matrix av2 = new Matrix(new double[][]{{1,2}, {1,2}, {1,2}, {1,2}});
 //        Matrix mat = new Matrix(av);
 //        Matrix mat2 = new Matrix(mat);

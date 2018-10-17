@@ -87,14 +87,14 @@ public class Matrix {
         if (index < 0 || index >= rows.length) {
             throw new IndexOutOfBoundsException("не верный индекс");
         }
-        int countRow = getColumnsCount();
+        int columnsCount = getColumnsCount();
 
-        if (vector.getSize() != countRow) {
+        if (vector.getSize() != columnsCount) {
             throw new IllegalArgumentException("размерность вектора не подходит к размерности матрицы");
         }
 
-        double[] coordinates = new double[countRow];
-        for (int i = 0; i < countRow; i++) {
+        double[] coordinates = new double[columnsCount];
+        for (int i = 0; i < columnsCount; i++) {
             coordinates[i] = vector.getCoordinateByIndex(i);
         }
         rows[index] = new Vector(coordinates);
@@ -142,13 +142,14 @@ public class Matrix {
     }
 
     public Vector multiplicationMatrixByVector(Vector vector) {
-        int columnMatrixCount = getColumnsCount();
-        if (columnMatrixCount != vector.getSize()) {
+        int columnsCount = getColumnsCount();
+        if (columnsCount != vector.getSize()) {
             throw new IllegalArgumentException("перемножение не допустимо");
         }
-        Vector result = new Vector(columnMatrixCount);
-        for (int i = 0; i < columnMatrixCount; i++) {
-            result.setCoordinateByIndex(i, Vector.getScalarMultiply(getRow(i), vector));
+        int rowsCount = rows.length;
+        Vector result = new Vector(rowsCount);
+        for (int i = 0; i < rowsCount; i++) {
+            result.setCoordinateByIndex(i, Vector.getScalarMultiply(rows[i], vector));
         }
         return result;
     }
